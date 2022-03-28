@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="managepeople.css">
+</head>
+
+<body>
+
+    <form action="" method="POST">
+        <ul>
+            <li><a href="/">Login</a></li>
+    
+           <li><a href="AllMovies.html">All Movies</a></li>
+            <li>
+                <div class="dropdown">
+                    <a class="dropbtn">My Movies &nbsp;&#x25BC;</a>
+                    <div class="dropdown-content">
+                        <a href="addmovies.html">Add Movies</a>
+                        <a href="managemovies.html">Manage Movies</a>
+                        <a href="managepeople.html">Manage People</a>
+                        <a href="dashboard.html">Suggestions</a>
+
+                        
+                    </div>
+                </div>
+            </li>
+            <li><a href="ratings.html">My Ratings</a></li>
+            <li><a href="manageusers.html">Manage users</a></li>
+        </ul>
+    </form>
+    <br>
+
+    <div class="middlebar">
+        <label for="">Manage People</label>
+    </div>
+    <br>
+    <form action="/person" method="POST">
+    <div class="left">
+        
+            <label>Name</label>
+            <input type="text" id="person_name" name="person" >
+            <br>
+            <br>
+            <label for="">Gender</label>
+            <select id="sex" name="gender" >
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Others">Others</option>
+            </select>
+            <br>
+            <br>
+            <label for="">Date of Birth</label>
+            <input type="text" id="dob" name="date" >
+            <br>
+            <br>
+            <input type="submit" value="Add">
+            </div>
+        </form>
+
+
+
+    <form action="/person-delete" method ="POST">
+    <div class="right">
+        <div class="listarea">
+            <select class="list" name="person_name" id="movie_person">
+            </select>
+        </div>
+        <br>
+        <br>
+        <input type="submit"  value="Delete">
+    </div>
+    </form>
+
+
+<script>
+    
+const xhttp = new XMLHttpRequest();
+xhttp.open("GET", "http://localhost:3000/movies-related-person");
+xhttp.send();
+xhttp.onload = function() {
+    const obj = JSON.parse(this.responseText);
+    for (var i=0; i<obj.length; i++) {
+        var counter = obj[i];
+        setActor(counter.person_name)
+    }
+}
+
+function setActor(name){
+    var root3 = document.getElementById('movie_person');
+    var option = document.createElement('option');
+    option.setAttribute('value', name);
+    option.innerHTML = name;
+    root3.appendChild(option);
+}
+
+
+const users = new XMLHttpRequest();
+users.open("GET", "http://localhost:3000/users");
+users.send();
+users.onload = function() {
+    const obj = JSON.parse(this.responseText);
+    for (var i=0; i<obj.length; i++) {
+        var counter = obj[i];
+        console.log(counter.user_name)
+        setUser(counter.user_name)
+    }
+}
+
+function setUser(name){
+    var root3 = document.getElementById('users_id');
+    var option = document.createElement('option');
+    option.setAttribute('value', name);
+    option.innerHTML = name;
+    root3.appendChild(option);
+}
+
+
+</script>
+</body>
+
+</html>

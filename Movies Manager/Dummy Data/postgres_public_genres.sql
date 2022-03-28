@@ -1,0 +1,10 @@
+INSERT INTO public.genres (genres) VALUES ('Action');
+INSERT INTO public.genres (genres) VALUES ('Romance');
+INSERT INTO public.genres (genres) VALUES ('Drama');
+INSERT INTO public.genres (genres) VALUES ('Thriller');
+INSERT INTO public.genres (genres) VALUES ('Sci-Fi');
+INSERT INTO public.genres (genres) VALUES ('Fantasy');
+INSERT INTO public.genres (genres) VALUES ('Comedy');
+INSERT INTO public.genres (genres) VALUES ('War');
+INSERT INTO public.genres (genres) VALUES ('Adventure');
+INSERT INTO public.genres (genres) VALUES ('null');

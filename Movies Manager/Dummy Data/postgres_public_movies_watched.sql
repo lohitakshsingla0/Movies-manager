@@ -1,0 +1,17 @@
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Sawan', 9, ('Mission Impossible',1997));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Martha', 7, ('Julia 2',1997));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Martha', 2, ('Mission Impossible',1997));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Ninja', 5, ('Mission Impossible',1997));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Ninja', 3, ('Harry potter ',2000));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Ninja', 5, ('Harry potter 2 ',2001));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Ninja', 6, ('Harry potter 3',2005));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Ninja', 7, ('Harry potter 4 ',2007));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Ninja', 5, ('Ram teri ganga maili ',1989));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Ninja', 5, ('Julia 3',1997));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Ninja', 8, ('Julia 2',1997));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Ninja', 6, ('Julia',1997));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Ninja', 5, ('avatar',2009));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Sawan', 4, ('avatar',2009));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Sawan', 4, ('Julia',1997));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Martha', 4, ('Harry potter ',2000));
+INSERT INTO movies_watched (user_name, rating, movie) VALUES ('Martha', 4, ('Ram teri ganga maili ',1989));

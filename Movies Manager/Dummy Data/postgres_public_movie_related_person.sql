@@ -1,0 +1,17 @@
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('Rohit Shetty', null, 'M');
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('Karan Johar', null, 'MF');
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('Christopher Nolan', null, 'M');
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('Steven spielberg', null, 'M');
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('Dywane Johnson', null, 'M');
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('Jessica Alba', null, 'F');
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('Rebecca Ferguson', null, 'F');
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('Anna Hathaway', null, 'F');
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('Sam', null, 'M');
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('James Cameron', null, 'M');
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('David Yates', null, 'M');
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('Emma Watson', null, 'F');
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('JK Rowlings', null, null);
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('Akshay', null, null);
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('Keanu', null, null);
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('Ajay', null, null);
+INSERT INTO public.movie_related_person (person_name, dob, sex) VALUES ('aa', null, null);

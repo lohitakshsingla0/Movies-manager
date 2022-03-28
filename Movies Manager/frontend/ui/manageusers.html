@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="managemovies.css">
+</head>
+
+<body>
+<form action="" method="POST">
+    <ul>
+        <li><a href="/">Login</a></li>
+
+       <li><a href="AllMovies.html">All Movies</a></li>
+        <li>
+            <div class="dropdown">
+                <a class="dropbtn">My Movies &nbsp;&#x25BC;</a>
+                <div class="dropdown-content">
+                    <a href="addmovies.html">Add Movies</a>
+                    <a href="managemovies.html">Manage Movies</a>
+                    <a href="managepeople.html">Manage People</a>
+                    <a href="dashboard.html">Suggestions</a>
+                </div>
+            </div>
+        </li>
+        <li><a href="ratings.html">My Ratings</a></li>
+        <li><a href="manageusers.html">Manage users</a></li>
+    </ul>
+</form>
+<br>
+    <div class="middlebar">
+        <label for="">Manage Users</label>
+    </div>
+    
+    <form action="/users" method="POST">
+    <div class="left">
+        
+            <label>userName</label>
+            <select name="name" id="userName">
+                <option value=""></option>
+            </select>
+            <br>
+            <br>
+            <label>forename</label>
+            <input type="text" name="forename" id="forename" required>
+            <br>
+            <br>
+            <label>surname</label>
+            <input type="text" name="surname" id="surename" required>
+            <br>
+            <br>
+            <label>dob By</label>
+             <input type="text" name="dob" type="text"  id="dob" required>
+            <br>
+            <br>
+            <input type="submit" value="Save">
+      </div>
+    </form>
+     
+
+      <script>
+      
+
+       const movieList = new XMLHttpRequest();
+       movieList.open("GET", "http://localhost:3000/users");
+       movieList.send();
+       movieList.onload = function() {
+        const obj = JSON.parse(this.responseText);
+        for (var i=0; i<obj.length; i++) {
+            var counter = obj[i];
+            movieName(counter.user_name);
+            
+        }
+    }
+
+    function movieName(name){
+        var movie = document.getElementById('userName');
+        var option = document.createElement('option');
+        option.setAttribute('value', name);
+        option.innerHTML = name;
+        movie.appendChild(option);
+    }
+
+
+    var ddd = document.getElementById('userName');
+    ddd.addEventListener('change', (event) => {
+        console.log(event.target.value);
+        var film = event.target.value;
+    
+  const movieItem = new XMLHttpRequest();
+  movieItem.open("GET", "http://localhost:3000/users-info/"+film);
+  movieItem.send();
+  
+  movieItem.onload = function() {
+  
+    const obj = JSON.parse(this.responseText);
+    console.log(this.responseText)
+    for (var i=0; i<obj.length; i++) {
+            var counter = obj[i];
+            setName(counter.forename)
+            dob(counter.dob)
+            surname(counter.surename)
+    }
+  
+}
+
+
+function setName(name){
+var foreName = document.getElementById('forename');
+foreName.setAttribute('value', name)
+}
+
+function surname(name){
+var sure = document.getElementById('surename');
+sure.setAttribute('value', name)
+}
+
+
+function dob(name){
+var dob = document.getElementById('dob');
+dob.setAttribute('value', name)
+}
+});   
+       </script>
+
+  </body>
+
+</html> 

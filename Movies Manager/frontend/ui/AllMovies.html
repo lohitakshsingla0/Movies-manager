@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="AllMovies.css">
+</head>
+
+<body>
+
+    <form action="" method="POST">
+        <ul>
+            <li><a href="/">Login</a></li>
+    
+           <li><a href="AllMovies.html">All Movies</a></li>
+            <li>
+                <div class="dropdown">
+                    <a class="dropbtn">My Movies &nbsp;&#x25BC;</a>
+                    <div class="dropdown-content">
+                        <a href="addmovies.html">Add Movies</a>
+                        <a href="managemovies.html">Manage Movies</a>
+                        <a href="managepeople.html">Manage People</a>
+                        <a href="dashboard.html">Suggestions</a>
+                    </div>
+                </div>
+            </li>
+            <li><a href="ratings.html">My Ratings</a></li>
+            <li><a href="manageusers.html">Manage users</a></li>
+        </ul>
+    </form>
+    <br>
+
+
+
+<div class="sort">
+    <label>Sort By</label>
+    <select name="genres" id="genre"></select>
+</div>
+<div class="scrollmenu" id="container_suggestions">
+
+</div>   
+<script>
+console.log("loding script....")
+
+var containerForSuggestions = document.getElementById('container_suggestions')
+
+const genreList = new XMLHttpRequest();
+genreList.open("GET", "http://localhost:3000/genres");
+genreList.send();
+genreList.onload = function() {
+    const obj = JSON.parse(this.responseText);
+    for (var i=0; i<obj.length; i++) {
+        var counter = obj[i];
+        setGenre(counter.genres);
+    }
+}
+
+var ddd = document.getElementById('genre');
+ddd.addEventListener('change', (event) => {
+    console.log('Optionchanged')
+    const sort_genre = new XMLHttpRequest();
+    sort_genre.open("GET", "http://localhost:3000/movie_by_genre/"+event.target.value);
+    sort_genre.send();
+    document.getElementsByClassName('scrollmenu')[0].innerHTML ="";
+
+    sort_genre.onload = function() {
+    const obj = JSON.parse(this.responseText);
+    containerForSuggestions.innerHTML ="";
+    for (var i=0; i<obj.length; i++) {
+        var counter = obj[i];
+        console.log(counter);
+        setSuggestion(counter)
+    }
+  }
+});
+
+function setGenre(name){
+    var genre1 = document.getElementById('genre');
+    var option = document.createElement('option');
+    option.setAttribute('value', name);
+    option.innerHTML = name;
+    genre1.appendChild(option);
+}
+    
+const xhttp = new XMLHttpRequest();
+xhttp.open("GET", "http://localhost:3000/movies");
+xhttp.send();
+xhttp.onload = function() {
+    const obj = JSON.parse(this.responseText);
+    for (var i=0; i<obj.length; i++) {
+        var counter = obj[i];
+        setSuggestion(counter)
+    }
+  }
+
+
+  function setSuggestion(suggestions){
+    var movie = document.createElement('div')
+    movie.setAttribute('class','card')
+    var image = document.createElement('img')
+    if(suggestions.movie_poster ==null){
+    image.setAttribute('src', 'https://picsum.photos/200/300')
+    image.setAttribute('alt', 'avatar')
+    }else{
+      image.setAttribute('src', suggestions.movie_poster)
+      image.setAttribute('alt', 'avatar')
+    }
+    image.setAttribute('style', 'width:100%')
+    var container = document.createElement('container');
+    var movieName =  document.createElement('h2');
+
+    var movieDetails = suggestions.movie_and_year;
+    movieDetails = movieDetails.replaceAll("\"","")
+    movieName.innerHTML = movieDetails;
+
+    var genreDetails = suggestions.genre1+" "+suggestions.genre2 +" "+  suggestions.genre3;
+    genreDetails = genreDetails.replaceAll("null", "")
+
+    var genres = document.createElement('p');
+    genres.innerHTML ='Genres: '+ genreDetails;
+
+    var directorDetails = suggestions.directed_by;
+    directorDetails = "Directed By: "+directorDetails
+    var director = document.createElement('p');
+    director.innerHTML = directorDetails;
+
+    var hero = suggestions.leading_actor;
+    hero = "Lead Actor/Actress:"+hero;
+    var lead = document.createElement('p');
+    lead.innerHTML = hero;
+
+    
+    var writer = document.createElement('p');
+    writer.innerHTML ="Written By: "+ suggestions.written_by;
+    var rating = document.createElement('p');
+    rating.innerHTML = "Movie Rating: "+ suggestions.mean_rating;
+
+    
+
+   
+    container.appendChild(image)
+    container.appendChild(movieName)
+    container.appendChild(genres)
+    container.appendChild(director)
+    container.appendChild(lead)
+    container.appendChild(writer)
+    container.appendChild(rating)
+
+    if(suggestions.sub_ordinated_to !=null){
+        var sub = document.createElement('p');
+        sub.innerHTML ="Subordinated By: "+ suggestions.sub_ordinated_to;
+        container.appendChild(sub)
+    }
+
+    var formrate = document.createElement('form')
+    formrate.setAttribute('action', '/rate-movie')
+    formrate.setAttribute('method', 'post')
+    var rate = document.createElement('input')
+    rate.setAttribute('type', 'number')
+    rate.setAttribute('name', 'rate')
+
+    
+    var hiddenElement = document.createElement('input')
+    hiddenElement.setAttribute('type', 'hidden')
+    hiddenElement.setAttribute('value', suggestions.movie_details)
+    hiddenElement.setAttribute('name', 'movie_list')
+
+
+    var submit = document.createElement('input')
+    submit.setAttribute('type','submit')
+    submit.setAttribute('value', 'rate')
+
+    formrate.appendChild(rate)
+    formrate.appendChild(hiddenElement)
+    formrate.appendChild(submit)
+    container.appendChild(formrate)
+
+    movie.appendChild(container)
+    containerForSuggestions.appendChild(movie)
+
+  }
+
+</script>
+</body>
+
+</html>

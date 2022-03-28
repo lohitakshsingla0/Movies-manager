@@ -1,0 +1,8 @@
+1. Front end initiates in the frontend folder in app.js
+2. Dummy data is situated inside Dummy Data folder, only movielist, userlist and movies watched needs to be inserted.
+3. Database structure is database_structure.sql
+4. To establish connection with the postgre server. Edits needs to be made in index.js inside database folder under frontend.
+
+To init connction use `node app`
+
+link: localhost@3000

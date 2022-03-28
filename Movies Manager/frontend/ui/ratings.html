@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="managepeople.css">
+</head>
+
+<body>
+
+    <form action="" method="POST">
+        <ul>
+            <li><a href="/">Login</a></li>
+    
+           <li><a href="AllMovies.html">All Movies</a></li>
+            <li>
+                <div class="dropdown">
+                    <a class="dropbtn">My Movies &nbsp;&#x25BC;</a>
+                    <div class="dropdown-content">
+                        <a href="addmovies.html">Add Movies</a>
+                        <a href="managemovies.html">Manage Movies</a>
+                        <a href="managepeople.html">Manage People</a>
+                        <a href="dashboard.html">Suggestions</a>
+                    </div>
+                </div>
+            </li>
+            <li><a href="ratings.html">My Ratings</a></li>
+            <li><a href="manageusers.html">Manage users</a></li>
+        </ul>
+    </form>
+    <br>
+
+    <div class="middlebar">
+        <label for="">Your Rated Movies</label>
+    </div>
+    <br>
+    <form action="/rate-movie" method="POST">
+    <div class="left">
+            <label>Movies</label>
+            <select id="movie" name="movie_list" >
+                <option value=""></option>
+            </select>
+            <br>
+            <br>
+            <label for="">Rating given:</label>
+            <p id="rating"></p>
+            <br>
+            <br>
+            <label for="">New Rating</label>
+            <input type="text" id="rate" name="rate" >
+            <br>
+            <br>
+            <input type="submit" value="Rate">
+            </div>
+        </form>
+<script>
+    
+const xhttp = new XMLHttpRequest();
+xhttp.open("GET", "http://localhost:3000/userrated");
+xhttp.send();
+xhttp.onload = function() {
+    const obj = JSON.parse(this.responseText);
+    console.log(obj)
+    for (var i=0; i<obj.length; i++) {
+        var counter = obj[i];
+        setMovie(counter.movie)
+       
+    }
+}
+
+var ddd = document.getElementById('movie');
+ddd.addEventListener('change', (event) => {
+    const movieRating = new XMLHttpRequest();
+    console.log(event.target.value);
+    movieRating.open("GET", "http://localhost:3000/userrated/"+event.target.value);
+    movieRating.send();
+    movieRating.onload = function() {
+    const obj = JSON.parse(this.responseText);
+    console.log(obj)
+    for (var i=0; i<obj.length; i++) {
+        var counter = obj[i];
+        setRating(counter.rating)
+    }
+}
+
+});
+
+function setMovie(name){
+    var root3 = document.getElementById('movie');
+    var option = document.createElement('option');
+    option.setAttribute('value', name);
+    option.innerHTML = name;
+    root3.appendChild(option);
+}
+
+function setRating(rate){
+    document.getElementById('rating').innerHTML = rate;
+}
+
+
+</script>
+</body>
+
+</html>

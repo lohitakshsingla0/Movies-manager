@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="aaddmovies.css">
+</head>
+<body>
+    
+    <form action="" method="POST">
+        <ul>
+            <li><a href="/">Login</a></li>
+    
+           <li><a href="AllMovies.html">All Movies</a></li>
+            <li>
+                <div class="dropdown">
+                    <a class="dropbtn">My Movies &nbsp;&#x25BC;</a>
+                    <div class="dropdown-content">
+                        <a href="addmovies.html">Add Movies</a>
+                        <a href="managemovies.html">Manage Movies</a>
+                        <a href="managepeople.html">Manage People</a>
+                        <a href="dashboard.html">Suggestions</a>
+                    </div>
+                </div>
+            </li>
+            <li><a href="ratings.html">My Ratings</a></li>
+            <li><a href="manageusers.html">Manage users</a></li>
+        </ul>
+    </form>
+
+    <br>
+
+<div class="middlebar">
+    <label for="">Add Movies</label>    
+</div>
+<br>
+ 
+<form action="/movies" method="POST">
+    <div class="left"></div>
+    <label>Title</label>
+    <input name= "movie_name"type="text">
+    <br>
+    <label>Release Year</label>
+    <input name = "year" type="number">
+    <br>
+    <br>
+
+    <label>Director</label>
+    <select name="direc" id="director">
+      
+    </select>
+    <br>
+    <br>
+
+    <label>Lead Actor</label>
+    <select name="actor"  id="lead_actor" required>
+       
+    </select>
+    <br>
+    <br>
+
+    <label>Written By</label>
+    <select name="script_writer" id="writer" required>
+        
+    </select>
+    <br>
+    <br>
+    <label>Genre 1</label>
+    <select name="genre_movie1"  id="genre0" required>
+    </select>
+    <br>
+    <br>
+    <label>Genre 2</label>
+    <select  name="genre_movie2" id="genre1">
+    </select>
+    <br>
+    <br>
+    <label>Genre 3</label>
+    <select name="genre_movie3" id="genre2">
+    </select>
+    <br>
+    <br>
+    <label>Sequeal Of</label>
+    <select  name="seq" id="movie_list">
+        <option value = ""></option>
+    </select>
+    <br>
+    <br>
+
+    <label>Poster Link</label>
+    <input name= "movie_poster_link"type="text">
+    <br>
+    <input type="submit">
+
+</form>
+
+
+ <script>
+     var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+
+const xhttp = new XMLHttpRequest();
+xhttp.open("GET", "http://localhost:3000/movies-related-person");
+xhttp.send();
+xhttp.onload = function() {
+    const obj = JSON.parse(this.responseText);
+    for (var i=0; i<obj.length; i++) {
+        var counter = obj[i];
+        setDirector(counter.person_name)
+        setActor(counter.person_name)
+        setWriter(counter.person_name)
+    }
+}
+
+const genreList = new XMLHttpRequest();
+genreList.open("GET", "http://localhost:3000/genres");
+genreList.send();
+genreList.onload = function() {
+    const obj = JSON.parse(this.responseText);
+    for (var i=0; i<obj.length; i++) {
+        var counter = obj[i];
+        setGenre1(counter.genres);
+        setGenre2(counter.genres);
+        setGenre3(counter.genres);
+    }
+}
+
+const movieList = new XMLHttpRequest();
+movieList.open("GET", "http://localhost:3000/movies");
+movieList.send();
+movieList.onload = function() {
+    const obj = JSON.parse(this.responseText);
+    for (var i=0; i<obj.length; i++) {
+        var counter = obj[i];
+        movieName(counter.movie_and_year);
+    }
+}
+
+function setDirector(name){
+    var root1 = document.getElementById('director');
+    var option = document.createElement('option');
+    option.setAttribute('value', name);
+    option.innerHTML = name;
+    root1.appendChild(option);
+}
+
+function setActor(name){
+    var root3 = document.getElementById('lead_actor');
+    var option = document.createElement('option');
+    option.setAttribute('value', name);
+    option.innerHTML = name;
+    root3.appendChild(option);
+}
+
+function setWriter(name){
+    var root2 = document.getElementById('writer');
+    var option = document.createElement('option');
+    option.setAttribute('value', name);
+    option.innerHTML = name;
+    root2.appendChild(option);
+}
+
+
+
+function setGenre1(name){
+    var genre1 = document.getElementById('genre0');
+    var option = document.createElement('option');
+    option.setAttribute('value', name);
+    option.innerHTML = name;
+    genre1.appendChild(option);
+}
+
+function setGenre2(name){
+    var genre2 = document.getElementById('genre1');
+    var option = document.createElement('option');
+    option.setAttribute('value', name);
+    option.innerHTML = name;
+    genre2.appendChild(option);
+}
+
+function setGenre3(name){
+    var genre3 = document.getElementById('genre2');
+    var option = document.createElement('option');
+    option.setAttribute('value', name);
+    option.innerHTML = name;
+    genre3.appendChild(option);
+}
+
+
+
+function movieName(name){
+    var movie = document.getElementById('movie_list');
+    var option = document.createElement('option');
+    option.setAttribute('value', name);
+    option.innerHTML = name;
+    movie.appendChild(option);
+}
+
+ </script>
+   
+</body>
+</html>
